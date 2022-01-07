@@ -9,13 +9,19 @@ using UnityEngine.UI;
 
 namespace FancyScrollView.Example01
 {
-    class Cell : FancyCell<ItemData>
+    class Cell : FancyCell<MusicData>
     {
-        [SerializeField] Text message = default;
+        [SerializeField] Text title = default;
+        [SerializeField] Text artist = default;
+        [SerializeField] Text easy = default;
+        [SerializeField] Text normal = default;
 
-        public override void UpdateContent(ItemData itemData)
+        public override void UpdateContent(MusicData music)
         {
-            message.text = itemData.Title;
+            title.text = music.Title;
+            artist.text = music.Artist;
+            easy.text = music.Easy.ToString();
+            normal.text = music.Normal.ToString();
         }
 
         public override void UpdatePosition(float position)
