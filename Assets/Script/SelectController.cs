@@ -11,17 +11,45 @@ public class SelectController : MonoBehaviour
     void Start()
     {
         SelectedMusic = FancyScrollView.ScrollView.MusicList[0]; // 先頭の楽曲が選ばれた状態にする
+        SelectedLevel = 0; // easyが選ばれた状態にする
     }
 
     // 選曲されてる楽曲情報表示
     public Text Title;
     public Text Artist;
+    public Text Level1;
+    public Text Level2;
 
     // Update is called once per frame
     void Update()
     {
+        // 選択されている楽曲情報表示
         Title.text = SelectedMusic.Title;
         Artist.text = SelectedMusic.Artist;
+        Level1.text = SelectedMusic.Easy.ToString();
+        Level2.text = SelectedMusic.Normal.ToString();
+    }
+
+    // レベル選択
+    public static int SelectedLevel; // 1:easy 2:normal
+    public GameObject Cursor, Easy, Normal;
+    public void LevelSelect(int level){
+        SelectedLevel = level;
+        // Debug.Log("level select: " + SelectedLevel.ToString()); // for debug
+        switch(level){
+            case 1:
+                Cursor.GetComponent<RectTransform>().localPosition = new Vector3(-220, -275, 0); // ←
+                Easy.GetComponent<RectTransform>().localPosition = new Vector3(-220, -45, 0); // 上げる
+                Normal.GetComponent<RectTransform>().localPosition = new Vector3(220, -90, 0); // 下げる
+                break;
+            case 2:
+                Cursor.GetComponent<RectTransform>().localPosition = new Vector3(220, -275, 0); // →
+                Easy.GetComponent<RectTransform>().localPosition = new Vector3(-220, -90, 0); // 下げる
+                Normal.GetComponent<RectTransform>().localPosition = new Vector3(220, -45, 0); // 上げる
+                break;
+            default:
+                break;
+        }
     }
 
     

@@ -37,7 +37,7 @@ namespace FancyScrollView
 
         public void OnClick(){
             SelectController.SelectedMusic = ScrollView.MusicList.Find(x => x.MusicID == this.id); // 選択された楽曲を指定
-            Debug.Log(SelectController.SelectedMusic.Title); // for debug
+            // Debug.Log(SelectController.SelectedMusic.Title); // for debug
         }
     }
 }
