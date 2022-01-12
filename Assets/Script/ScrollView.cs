@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 
-namespace FancyScrollView.Example01
+namespace FancyScrollView
 {
     class ScrollView : FancyScrollView<MusicData>
     {
@@ -17,6 +17,8 @@ namespace FancyScrollView.Example01
         [SerializeField] GameObject cellPrefab = default;
 
         protected override GameObject CellPrefab => cellPrefab;
+
+        public static List<MusicData> MusicList;
 
         protected override void Initialize()
         {
@@ -35,7 +37,7 @@ namespace FancyScrollView.Example01
             // 表示用データを格納
             TextAsset csv = Resources.Load("MusicList") as TextAsset;
             StringReader reader = new StringReader(csv.text);
-            List<MusicData> MusicList = new List<MusicData>();
+            MusicList = new List<MusicData>();
             for(int i = 0; reader.Peek() > -1; i++){
                 string line = reader.ReadLine();
                 string[] values = line.Split(',');
@@ -45,11 +47,11 @@ namespace FancyScrollView.Example01
             this.UpdateData(MusicList);
         }
 
-        private MusicData toMusicData(string[] v){
-            int e = int.Parse(v[2]);
-            int n = int.Parse(v[3]);
+        private MusicData toMusicData(string[] v){ // id, title, artist, level1, level2
+            int e = int.Parse(v[3]);
+            int n = int.Parse(v[4]);
             
-            return new MusicData(v[0], v[1], e, n);
+            return new MusicData(v[0], v[1], v[2], e, n);
         }
     }
 }

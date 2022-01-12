@@ -7,7 +7,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FancyScrollView.Example01
+namespace FancyScrollView
 {
     class Cell : FancyCell<MusicData>
     {
@@ -15,6 +15,7 @@ namespace FancyScrollView.Example01
         [SerializeField] Text artist = default;
         [SerializeField] Text easy = default;
         [SerializeField] Text normal = default;
+        private string id;
 
         public override void UpdateContent(MusicData music)
         {
@@ -22,6 +23,7 @@ namespace FancyScrollView.Example01
             artist.text = music.Artist;
             easy.text = music.Easy.ToString();
             normal.text = music.Normal.ToString();
+            id = music.MusicID;
         }
 
         public override void UpdatePosition(float position)
@@ -33,5 +35,9 @@ namespace FancyScrollView.Example01
         
         }
 
+        public void OnClick(){
+            SelectController.SelectedMusic = ScrollView.MusicList.Find(x => x.MusicID == this.id); // 選択された楽曲を指定
+            Debug.Log(SelectController.SelectedMusic.Title); // for debug
+        }
     }
 }
