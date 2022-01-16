@@ -16,7 +16,6 @@ namespace FancyScrollView
         public string Artist { get; }
         public int Easy { get; }
         public int Normal { get; }
-        public string Chart { get; }
 
         public MusicData(string id, string title, string artist, int easy, int normal)
         {
