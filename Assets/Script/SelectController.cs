@@ -11,7 +11,7 @@ public class SelectController : MonoBehaviour
     void Start()
     {
         SelectedMusic = FancyScrollView.ScrollView.MusicList[0]; // 先頭の楽曲が選ばれた状態にする
-        SelectedLevel = 0; // easyが選ばれた状態にする
+        SelectedLevel = 1; // easyが選ばれた状態にする
     }
 
     // 選曲されてる楽曲情報表示
