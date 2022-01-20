@@ -13,6 +13,12 @@ public class Note : MonoBehaviour
     public float timing = 0;
     public int option = 0;
 
+    // 判定関係の設定 justとの絶対値で指定
+    float JudgeRange = (float)0.08; // 入力を受け付け時間
+    float Performer; // P判定
+    float Great;
+    float NiceTry;
+
     void Start()
     {
         // プレイヤー設定からハイスピを読み込む
@@ -24,7 +30,13 @@ public class Note : MonoBehaviour
         // ノーツを落とす処理
         this.transform.position += Vector3.down * highSpeed * Time.deltaTime;
         if(this.transform.position.y < -7.0f){ // 叩かずに通過した場合の処理
+            PlayController.Miss();
             Destroy(this.gameObject);
+        }
+
+        // 判定有効範囲だけ入力を確認
+        if (CheckJudgeRange()){
+            CheckInput();
         }
     }
 
@@ -33,4 +45,32 @@ public class Note : MonoBehaviour
         timing = _timing;
         option = _opt;
     }
+
+    bool CheckJudgeRange()
+    {
+        float now = PlayController.GetMusicTime();
+        if( this.timing - JudgeRange < now && now < this.timing + JudgeRange) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    void CheckInput()
+    {
+        switch(this.type){
+            case 0: // tap
+                if(TapScript.GetLaneBool(this.option)){
+                    PlayController.Success();
+                    Destroy(this.gameObject);
+                }
+                break;
+            case 1: // free shake
+                // if(){}
+                break;
+            default:
+                break;
+        }
+    }
+
 }

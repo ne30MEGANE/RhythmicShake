@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class PlayController : MonoBehaviour
 {
     // オーディオ関係
-    public AudioSource audioSource;
-    private AudioClip audioClip;
-    public AudioSource tapSound;
-    float startTime = 0;
+    public AudioSource musicSource;
+    private AudioClip musicClip;
+    static public AudioSource tapSound;
+    static float startTime = 0;
 
     // ノーツ関係
     int[] type, option;
@@ -27,8 +27,13 @@ public class PlayController : MonoBehaviour
     // プレイ管理
     bool isPlaying = false;
     int notesCount = 0;
-    int comboCount = 0;
     public float offset = -1; // 正解タイミングに対してどのタイミングでノーツを生成するか
+
+    // リザルト画面にも引き継ぐ情報
+    static int comboCount = 0;
+
+    // for debug
+    public bool TestMode;
 
     void Start()
     {
@@ -38,6 +43,13 @@ public class PlayController : MonoBehaviour
         timing = new float[1024];
         highSpeed = PlayerData.HiSpeed;
         lineY = judgeLine.gameObject.transform.position.y;
+        tapSound = GameObject.Find("Tap").GetComponent<AudioSource>();
+
+        // for debug
+        if(TestMode){
+            SelectController.SelectedMusic = new FancyScrollView.MusicData("oheya","私たちのお部屋","nem*",1,4);
+            SelectController.SelectedLevel = 2;
+        }
 
         // 表示関係
         string titleText = "♪" + SelectController.SelectedMusic.Title;
@@ -59,16 +71,18 @@ public class PlayController : MonoBehaviour
             GenerateChart();
 
             // コンボ表示
-            if(comboCount > 5) combo.text = comboCount.ToString();
+            // if(comboCount > 5) combo.text = comboCount.ToString();
         }
 
     }
 
     private void SetMusic(string musicID) // 音声ファイルを取得してオーディオソースを設定
     {
+
+
         string filepath = "Audio/" + musicID;
-        audioClip = Resources.Load<AudioClip>(filepath);
-        audioSource.GetComponent<AudioSource>().clip = audioClip;
+        musicClip = Resources.Load<AudioClip>(filepath);
+        musicSource.GetComponent<AudioSource>().clip = musicClip;
     }
 
     private void LoadChart(string musicID, int chartNum) // 譜面ファイルを取得して解釈
@@ -102,7 +116,7 @@ public class PlayController : MonoBehaviour
         }
     }
 
-    public float GetMusicTime() // 曲が始まってからの経過時間を返す
+    public static float GetMusicTime() // 曲が始まってからの経過時間を返す
     {
         return Time.time - startTime;
     }
@@ -116,15 +130,28 @@ public class PlayController : MonoBehaviour
         }
     }
 
-    public void Judge(float timing)
+    public static void Success() // PERFORMER・GREAT
     {
-        // judge
+        PlayController.tapSound.Play();
+        PlayController.comboCount++;
+        Debug.Log("コンボ: " + comboCount.ToString()); // for debug
+    }
+
+    public static void Bad() // NICE TRY
+    {
+        PlayController.tapSound.Play();
+        PlayController.comboCount = 0;
+    }
+
+    public static void Miss() // THROUGH
+    {
+        PlayController.comboCount = 0;
     }
 
     private void PlayStart() // プレイ開始処理
     {
         startTime = Time.time;
         isPlaying = true;
-        audioSource.Play();
+        musicSource.Play();
     }
 }
