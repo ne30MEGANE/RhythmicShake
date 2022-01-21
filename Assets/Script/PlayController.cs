@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayController : MonoBehaviour
 {
@@ -30,11 +31,11 @@ public class PlayController : MonoBehaviour
     public float offset = -1; // 正解タイミングに対してどのタイミングでノーツを生成するか
 
     // リザルト画面にも引き継ぐ情報
-    static int comboCount = 0;
-    static int performerCount = 0;
-    static int greatCount = 0;
-    static int nicetryCount = 0;
-    static int missCount = 0;
+    public static int comboCount = 0;
+    public static int performerCount = 0;
+    public static int greatCount = 0;
+    public static int nicetryCount = 0;
+    public static int missCount = 0;
 
     // for debug
     public bool TestMode;
@@ -45,6 +46,11 @@ public class PlayController : MonoBehaviour
         type = new int[1024];
         option = new int[1024];
         timing = new float[1024];
+        performerCount = 0;
+        greatCount = 0;
+        nicetryCount = 0;
+        missCount = 0;
+        comboCount = 0;
         highSpeed = PlayerData.HiSpeed;
         lineY = judgeLine.gameObject.transform.position.y;
         tapSound = GameObject.Find("Tap").GetComponent<AudioSource>();
@@ -113,6 +119,14 @@ public class PlayController : MonoBehaviour
                 GameObject shake = Instantiate(notes[1], new Vector3(0, highSpeed + lineY, 0), Quaternion.identity);
                 shake.GetComponent<Note>().DataSet(timing);
                 break;
+            case 2: // L shake
+                GameObject shakeL = Instantiate(notes[2], new Vector3(0, highSpeed + lineY, 0), Quaternion.identity);
+                shakeL.GetComponent<Note>().DataSet(timing);
+                break;
+            case 3: // R shake
+                GameObject shakeR = Instantiate(notes[3], new Vector3(0, highSpeed + lineY, 0), Quaternion.identity);
+                shakeR.GetComponent<Note>().DataSet(timing);
+                break;
             default:
                 break;
         }
@@ -125,8 +139,12 @@ public class PlayController : MonoBehaviour
 
     private void GenerateChart() // ノーツを生成して譜面を作成
     {
-        while(timing[notesCount] + offset < GetMusicTime() && timing[notesCount] != 0)
-        {
+        while(timing[notesCount] + offset < GetMusicTime())
+        {   
+            if(timing[notesCount] == 0){ // 最後のノーツを生成した後
+                Invoke(nameof(ToResultScene), 5f);
+                break;
+            }
             GenerateNote(timing[notesCount], type[notesCount], option[notesCount]);
             notesCount++;
         }
@@ -135,6 +153,7 @@ public class PlayController : MonoBehaviour
     public static void Performer() // PERFORMER
     {
         PlayController.tapSound.Play();
+        PlayController.performerCount++;
         PlayController.comboCount++;
         Debug.Log("コンボ: " + comboCount.ToString()); // for debug
     }
@@ -142,17 +161,20 @@ public class PlayController : MonoBehaviour
     public static void Great() // GREAT
     {
         PlayController.tapSound.Play();
+        PlayController.greatCount++;
         PlayController.comboCount++;
     }
 
     public static void Bad() // NICE TRY
     {
         PlayController.tapSound.Play();
+        PlayController.nicetryCount++;
         PlayController.comboCount = 0;
     }
 
     public static void Miss() // THROUGH
     {
+        PlayController.missCount++;
         PlayController.comboCount = 0;
     }
 
@@ -161,5 +183,11 @@ public class PlayController : MonoBehaviour
         startTime = Time.time;
         isPlaying = true;
         musicSource.Play();
+    }
+
+    private void ToResultScene() // プレイ終了処理
+    {
+        musicSource.Stop();
+        SceneManager.LoadScene("ResultScene");
     }
 }

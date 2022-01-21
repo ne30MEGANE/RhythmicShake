@@ -14,10 +14,10 @@ public class Note : MonoBehaviour
     public int option = 0;
 
     // 判定関係の設定 justとの絶対値で指定
-    float JudgeRange = (float)0.08; // 入力を受け付け時間
-    float Performer; // P判定
-    float Great;
-    float NiceTry;
+    float JudgeRange = (float)0.1; // 入力を受け付け時間
+    float Performer = (float)0.05; // P判定
+    float Great = (float)0.08;
+    float NiceTry = (float)0.1;
 
     void Start()
     {
@@ -71,8 +71,14 @@ public class Note : MonoBehaviour
                     Destroy(this.gameObject);
                 }
                 break;
-            case 2: // LR shake
-                if(ShakeScript.instance.GetShakeBool(this.option)){
+            case 2: // L shake
+                if(ShakeScript.instance.GetShakeBool(0)){
+                    PlayController.Performer();
+                    Destroy(this.gameObject);
+                }
+                break;
+            case 3: // R shake
+                if(ShakeScript.instance.GetShakeBool(1)){
                     PlayController.Performer();
                     Destroy(this.gameObject);
                 }

@@ -1365,7 +1365,7 @@ MonoBehaviour:
   title: {fileID: 391148421}
   combo: {fileID: 523927778}
   offset: -1
-  TestMode: 1
+  TestMode: 0
 --- !u!4 &1597049366
 Transform:
   m_ObjectHideFlags: 0
