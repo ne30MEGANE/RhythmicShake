@@ -26,7 +26,7 @@ public class ResultController : MonoBehaviour
         if(level == 1){ // easy
             LevelColor.GetComponent<Image>().color = new Color32(137, 193, 144, 255);
         }else if(level == 2){ // normal
-            LevelColor.GetComponent<Image>().color = new Color(240, 144, 168, 255);
+            LevelColor.GetComponent<Image>().color = new Color32(240, 144, 168, 255);
         }
 
         // 判定
