@@ -5,7 +5,14 @@ using UnityEngine.UI;
 
 public class TapScript : MonoBehaviour
 {   
-    static bool[] touching; // 各レーンのタッチ状況を保持
+    public static TapScript instance;
+
+    bool[] touching; // 各レーンのタッチ状況を保持
+
+    void Awake() // インスタンス化
+    {
+        if(instance == null) instance = this;
+    }
 
     void Start()
     {
@@ -22,7 +29,7 @@ public class TapScript : MonoBehaviour
         }
     }
 
-    public static bool GetLaneBool(int lane){ // レーンへの入力情報を返す
+    public bool GetLaneBool(int lane){ // レーンへの入力情報を返す
         return touching[lane];
     }
 }

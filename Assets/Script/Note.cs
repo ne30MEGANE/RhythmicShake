@@ -60,13 +60,22 @@ public class Note : MonoBehaviour
     {
         switch(this.type){
             case 0: // tap
-                if(TapScript.GetLaneBool(this.option)){
-                    PlayController.Success();
+                if(TapScript.instance.GetLaneBool(this.option)){
+                    PlayController.Performer();
                     Destroy(this.gameObject);
                 }
                 break;
             case 1: // free shake
-                // if(){}
+                if(ShakeScript.instance.GetShakeBool()){
+                    PlayController.Performer();
+                    Destroy(this.gameObject);
+                }
+                break;
+            case 2: // LR shake
+                if(ShakeScript.instance.GetShakeBool(this.option)){
+                    PlayController.Performer();
+                    Destroy(this.gameObject);
+                }
                 break;
             default:
                 break;

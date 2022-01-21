@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShakeScript : MonoBehaviour
 {
+    public static ShakeScript instance;
+
     public float Threshold0, Threshold1; // 0:自由方向シェイクのしきい値、1:方向指定シェイクのしきい値
     private float sqrThreshold0, sqrThreshold1;
 
@@ -11,7 +13,11 @@ public class ShakeScript : MonoBehaviour
 
     private bool shake;
 
-    // Start is called before the first frame update
+    void Awake() // インスタンス化
+    {
+        if(instance == null) instance = this;
+    }
+    
     void Start()
     {
         sqrThreshold0 = Mathf.Pow(Threshold0, 2);

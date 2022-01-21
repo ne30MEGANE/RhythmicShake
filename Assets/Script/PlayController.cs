@@ -31,6 +31,10 @@ public class PlayController : MonoBehaviour
 
     // リザルト画面にも引き継ぐ情報
     static int comboCount = 0;
+    static int performerCount = 0;
+    static int greatCount = 0;
+    static int nicetryCount = 0;
+    static int missCount = 0;
 
     // for debug
     public bool TestMode;
@@ -71,15 +75,13 @@ public class PlayController : MonoBehaviour
             GenerateChart();
 
             // コンボ表示
-            // if(comboCount > 5) combo.text = comboCount.ToString();
+            combo.text = comboCount.ToString(); // update: 5combo以下のとき表示しない
         }
 
     }
 
     private void SetMusic(string musicID) // 音声ファイルを取得してオーディオソースを設定
     {
-
-
         string filepath = "Audio/" + musicID;
         musicClip = Resources.Load<AudioClip>(filepath);
         musicSource.GetComponent<AudioSource>().clip = musicClip;
@@ -130,11 +132,17 @@ public class PlayController : MonoBehaviour
         }
     }
 
-    public static void Success() // PERFORMER・GREAT
+    public static void Performer() // PERFORMER
     {
         PlayController.tapSound.Play();
         PlayController.comboCount++;
         Debug.Log("コンボ: " + comboCount.ToString()); // for debug
+    }
+
+    public static void Great() // GREAT
+    {
+        PlayController.tapSound.Play();
+        PlayController.comboCount++;
     }
 
     public static void Bad() // NICE TRY
