@@ -29,8 +29,8 @@ public class Note : MonoBehaviour
     {
         // ノーツを落とす処理
         this.transform.position += Vector3.down * highSpeed * Time.deltaTime;
-        if(this.transform.position.y < -7.0f){ // 叩かずに通過した場合の処理
-            PlayController.Miss();
+        if(this.transform.position.y < -5.0f){ // 叩かずに通過した場合の処理
+            PlayController.instance.Miss();
             Destroy(this.gameObject);
         }
 
@@ -61,25 +61,25 @@ public class Note : MonoBehaviour
         switch(this.type){
             case 0: // tap
                 if(TapScript.instance.GetLaneBool(this.option)){
-                    PlayController.Performer();
+                    PlayController.instance.Performer();
                     Destroy(this.gameObject);
                 }
                 break;
             case 1: // free shake
                 if(ShakeScript.instance.GetShakeBool()){
-                    PlayController.Performer();
+                    PlayController.instance.Performer();
                     Destroy(this.gameObject);
                 }
                 break;
             case 2: // L shake
                 if(ShakeScript.instance.GetShakeBool(0)){
-                    PlayController.Performer();
+                    PlayController.instance.Performer();
                     Destroy(this.gameObject);
                 }
                 break;
             case 3: // R shake
                 if(ShakeScript.instance.GetShakeBool(1)){
-                    PlayController.Performer();
+                    PlayController.instance.Performer();
                     Destroy(this.gameObject);
                 }
                 break;

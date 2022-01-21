@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayController : MonoBehaviour
 {
+    // インスタンス化
+    public static PlayController instance;
+
     // オーディオ関係
     public AudioSource musicSource;
     private AudioClip musicClip;
@@ -25,6 +28,10 @@ public class PlayController : MonoBehaviour
     public Text title;
     public Text combo;
 
+    // 判定表示
+    public Image displayArea;
+    public Sprite[] JudgeImage;
+
     // プレイ管理
     bool isPlaying = false;
     int notesCount = 0;
@@ -39,6 +46,11 @@ public class PlayController : MonoBehaviour
 
     // for debug
     public bool TestMode;
+
+    void Awake()
+    {
+        if(instance == null) instance = this;
+    }
 
     void Start()
     {
@@ -64,6 +76,7 @@ public class PlayController : MonoBehaviour
         // 表示関係
         string titleText = "♪" + SelectController.SelectedMusic.Title;
         title.text = titleText;
+        displayArea.enabled = false;
 
         // プレイ開始準備
         string musicID = SelectController.SelectedMusic.MusicID;
@@ -150,32 +163,47 @@ public class PlayController : MonoBehaviour
         }
     }
 
-    public static void Performer() // PERFORMER
+    public void Performer() // PERFORMER
     {
-        PlayController.tapSound.Play();
-        PlayController.performerCount++;
-        PlayController.comboCount++;
-        Debug.Log("コンボ: " + comboCount.ToString()); // for debug
+        tapSound.Play();
+        performerCount++;
+        comboCount++;
+        JudgeDisplay(0);
+        // Debug.Log("コンボ: " + comboCount.ToString()); // for debug
     }
 
-    public static void Great() // GREAT
+    public void Great() // GREAT
     {
-        PlayController.tapSound.Play();
-        PlayController.greatCount++;
-        PlayController.comboCount++;
+        tapSound.Play();
+        greatCount++;
+        comboCount++;
+        JudgeDisplay(1);
     }
 
-    public static void Bad() // NICE TRY
+    public void Bad() // NICE TRY
     {
-        PlayController.tapSound.Play();
-        PlayController.nicetryCount++;
-        PlayController.comboCount = 0;
+        tapSound.Play();
+        nicetryCount++;
+        comboCount = 0;
+        JudgeDisplay(2);
     }
 
-    public static void Miss() // THROUGH
+    public void Miss() // THROUGH
     {
-        PlayController.missCount++;
-        PlayController.comboCount = 0;
+        missCount++;
+        comboCount = 0;
+        JudgeDisplay(3);
+    }
+
+    private void JudgeDisplay(int judgeNum){ // 指定した番号の判定を表示させる
+        displayArea.sprite = JudgeImage[judgeNum]; // 0:Per 1:Gr 2:NT 3:TH
+        displayArea.enabled = true;
+        Invoke(nameof(Hide), 0.35f);
+    }
+
+    private void Hide(){
+        displayArea.enabled = false;
+        
     }
 
     private void PlayStart() // プレイ開始処理
