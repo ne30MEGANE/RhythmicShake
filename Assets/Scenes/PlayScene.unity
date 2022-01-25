@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 541799369}
   - component: {fileID: 541799368}
   m_Layer: 5
-  m_Name: Combo
+  m_Name: ComboArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1365,6 +1365,7 @@ MonoBehaviour:
   judgeLine: {fileID: 1024806854}
   title: {fileID: 391148421}
   combo: {fileID: 523927778}
+  comboArea: {fileID: 541799366}
   displayArea: {fileID: 1872250167}
   JudgeImage:
   - {fileID: 21300000, guid: 93a0204e51eb15d4fa638442bc669605, type: 3}
@@ -1372,7 +1373,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c80ddc4fc58bf2843aaa1c7cd274a045, type: 3}
   - {fileID: 21300000, guid: d930c84aa5dddad41b590261bc094a1e, type: 3}
   offset: -1
-  TestMode: 0
+  TestMode: 1
 --- !u!4 &1597049366
 Transform:
   m_ObjectHideFlags: 0

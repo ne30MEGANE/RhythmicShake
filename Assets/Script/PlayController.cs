@@ -27,6 +27,7 @@ public class PlayController : MonoBehaviour
     // 表示関係
     public Text title;
     public Text combo;
+    public GameObject comboArea;
 
     // 判定表示
     public Image displayArea;
@@ -77,6 +78,7 @@ public class PlayController : MonoBehaviour
         string titleText = "♪" + SelectController.SelectedMusic.Title;
         title.text = titleText;
         displayArea.enabled = false;
+        comboArea.SetActive(false);
 
         // プレイ開始準備
         string musicID = SelectController.SelectedMusic.MusicID;
@@ -94,7 +96,10 @@ public class PlayController : MonoBehaviour
             GenerateChart();
 
             // コンボ表示
-            combo.text = comboCount.ToString(); // update: 5combo以下のとき表示しない
+            if(comboCount > 4){ // 5combo未満のとき表示しない
+                combo.text = comboCount.ToString();
+                comboArea.SetActive(true);
+            }
         }
 
     }
@@ -184,14 +189,14 @@ public class PlayController : MonoBehaviour
     {
         tapSound.Play();
         nicetryCount++;
-        comboCount = 0;
+        ComboReset();
         JudgeDisplay(2);
     }
 
     public void Miss() // THROUGH
     {
         missCount++;
-        comboCount = 0;
+        ComboReset();
         JudgeDisplay(3);
     }
 
@@ -204,6 +209,11 @@ public class PlayController : MonoBehaviour
     private void Hide(){
         displayArea.enabled = false;
         
+    }
+
+    private void ComboReset(){
+        comboCount = 0;
+        comboArea.SetActive(false);
     }
 
     private void PlayStart() // プレイ開始処理
