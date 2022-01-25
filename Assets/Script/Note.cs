@@ -14,10 +14,9 @@ public class Note : MonoBehaviour
     public int option = 0;
 
     // 判定関係の設定 justとの絶対値で指定
-    float JudgeRange = (float)0.1; // 入力を受け付け時間
-    float Performer = (float)0.05; // P判定
-    float Great = (float)0.08;
-    float NiceTry = (float)0.1;
+    float JudgeRange = (float)0.3; // 入力を受け付け時間
+    float Performer = (float)0.1; // P判定
+    float Great = (float)0.2;
 
     void Start()
     {
@@ -29,7 +28,7 @@ public class Note : MonoBehaviour
     {
         // ノーツを落とす処理
         this.transform.position += Vector3.down * highSpeed * Time.deltaTime;
-        if(this.transform.position.y < -5.0f){ // 叩かずに通過した場合の処理
+        if(this.timing + JudgeRange < PlayController.GetMusicTime()){ // 叩かずに通過した場合の処理
             PlayController.instance.Miss();
             Destroy(this.gameObject);
         }
@@ -61,25 +60,25 @@ public class Note : MonoBehaviour
         switch(this.type){
             case 0: // tap
                 if(TapScript.instance.GetLaneBool(this.option)){
-                    PlayController.instance.Performer();
+                    JudgeRank_tap(PlayController.GetMusicTime());
                     Destroy(this.gameObject);
                 }
                 break;
             case 1: // free shake
                 if(ShakeScript.instance.GetShakeBool()){
-                    PlayController.instance.Performer();
+                    JudgeRank_shake(PlayController.GetMusicTime());
                     Destroy(this.gameObject);
                 }
                 break;
             case 2: // L shake
                 if(ShakeScript.instance.GetShakeBool(0)){
-                    PlayController.instance.Performer();
+                    JudgeRank_shake(PlayController.GetMusicTime());
                     Destroy(this.gameObject);
                 }
                 break;
             case 3: // R shake
                 if(ShakeScript.instance.GetShakeBool(1)){
-                    PlayController.instance.Performer();
+                    JudgeRank_shake(PlayController.GetMusicTime());
                     Destroy(this.gameObject);
                 }
                 break;
@@ -88,4 +87,16 @@ public class Note : MonoBehaviour
         }
     }
 
+    void JudgeRank_tap(float now) // 引数:入力タイミング
+    {
+        if(this.timing - Performer < now && now < this.timing + Performer) PlayController.instance.Performer();
+        else if(this.timing - Great < now && now < this.timing + Great) PlayController.instance.Great();
+        else PlayController.instance.Bad();
+    }
+
+    void JudgeRank_shake(float now) // シェイク判定用
+    {
+        if(this.timing - Performer < now && now < this.timing + Performer) PlayController.instance.Performer();
+        else PlayController.instance.Great();
+    }
 }
