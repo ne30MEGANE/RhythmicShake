@@ -1373,7 +1373,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c80ddc4fc58bf2843aaa1c7cd274a045, type: 3}
   - {fileID: 21300000, guid: d930c84aa5dddad41b590261bc094a1e, type: 3}
   offset: -1
-  TestMode: 1
+  TestMode: 0
 --- !u!4 &1597049366
 Transform:
   m_ObjectHideFlags: 0

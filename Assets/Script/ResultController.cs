@@ -22,11 +22,17 @@ public class ResultController : MonoBehaviour
 
         // 難易度
         int level = SelectController.SelectedLevel;
-        LevelNumber.text = level.ToString();
-        if(level == 1){ // easy
-            LevelColor.GetComponent<Image>().color = new Color32(137, 193, 144, 255);
-        }else if(level == 2){ // normal
-            LevelColor.GetComponent<Image>().color = new Color32(240, 144, 168, 255);
+        switch(level){
+            case 1:
+                LevelNumber.text = SelectController.SelectedMusic.Easy.ToString();
+                LevelColor.GetComponent<Image>().color = new Color32(137, 193, 144, 255);
+                break;
+            case 2:
+                LevelNumber.text = SelectController.SelectedMusic.Normal.ToString();
+                LevelColor.GetComponent<Image>().color = new Color32(240, 144, 168, 255);
+                break;
+            default:
+                break;
         }
 
         // 判定
