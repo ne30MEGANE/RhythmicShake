@@ -8,5 +8,5 @@ public class PlayerData : MonoBehaviour
     public static float HiSpeed = 7;
 
     // プレイヤー情報
-    public static string PlayerName;
+    public static string PlayerName = "リズシェぷれいやー君";
 }
