@@ -437,7 +437,19 @@ MonoBehaviour:
   m_Value: 6
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 222076873064743205}
+        m_TargetAssemblyTypeName: DialogScript, Assembly-CSharp
+        m_MethodName: HighSpeedSet
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &222076872333828699
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,6 +782,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ad347a827769447b7c0d30ee95f739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 222076872259378544}
+  slider_dsp: {fileID: 222076873906304889}
 --- !u!1 &222076873218874589
 GameObject:
   m_ObjectHideFlags: 0
@@ -1482,7 +1496,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u73FE\u5728\u306E\u8A2D\u5B9A \uFF1A 5"
+  m_Text: "\u73FE\u5728\u306E\u8A2D\u5B9A \uFF1A "
 --- !u!114 &222076873906304888
 MonoBehaviour:
   m_ObjectHideFlags: 0
