@@ -42,7 +42,7 @@ public class ResultController : MonoBehaviour
         Count[3].text = PlayController.missCount.ToString();
 
         // スコア
-        // Score.text = xxxx // update: スコア加算機能実装後
+        Score.text = PlayController.scoreCount.ToString();
 
         // フルコン・ハイスコア表示管理
         FullCombo.SetActive(false);

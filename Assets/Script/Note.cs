@@ -96,7 +96,8 @@ public class Note : MonoBehaviour
 
     void JudgeRank_shake(float now) // シェイク判定用
     {
-        if(this.timing - Performer < now && now < this.timing + Performer) PlayController.instance.Performer();
-        else PlayController.instance.Great();
+        // タップのグレ範囲までパフェ扱いする
+        if(this.timing - Great < now && now < this.timing + Great) PlayController.instance.Performer(true);
+        else PlayController.instance.Great(true);
     }
 }

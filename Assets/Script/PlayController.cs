@@ -45,6 +45,12 @@ public class PlayController : MonoBehaviour
     public static int nicetryCount = 0;
     public static int missCount = 0;
 
+    // スコア関係
+    private int[] tapScore = {500, 350, 200}; // 0:p, 1:g, 2:nt
+    private int[] shakeScore = {700, 400}; // 0:p, 1:g
+    public Text score;
+    public static int scoreCount = 0;
+
     // for debug
     public bool TestMode;
 
@@ -64,6 +70,7 @@ public class PlayController : MonoBehaviour
         nicetryCount = 0;
         missCount = 0;
         comboCount = 0;
+        scoreCount = 0;
         highSpeed = PlayerData.HiSpeed;
         lineY = judgeLine.gameObject.transform.position.y;
         tapSound = GameObject.Find("Tap").GetComponent<AudioSource>();
@@ -79,6 +86,7 @@ public class PlayController : MonoBehaviour
         title.text = titleText;
         displayArea.enabled = false;
         comboArea.SetActive(false);
+        score.text = scoreCount.ToString();
 
         // プレイ開始準備
         string musicID = SelectController.SelectedMusic.MusicID;
@@ -100,6 +108,9 @@ public class PlayController : MonoBehaviour
                 combo.text = comboCount.ToString();
                 comboArea.SetActive(true);
             }
+
+            // スコア表示
+            score.text = scoreCount.ToString();
         }
 
     }
@@ -168,18 +179,22 @@ public class PlayController : MonoBehaviour
         }
     }
 
-    public void Performer() // PERFORMER
+    public void Performer(bool shake = false) // PERFORMER
     {
         tapSound.Play();
+        if(shake) scoreCount += tapScore[0];
+        else scoreCount += shakeScore[0];
         performerCount++;
         comboCount++;
         JudgeDisplay(0);
         // Debug.Log("コンボ: " + comboCount.ToString()); // for debug
     }
 
-    public void Great() // GREAT
+    public void Great(bool shake = false) // GREAT
     {
         tapSound.Play();
+        if(shake) scoreCount += tapScore[1];
+        else scoreCount += shakeScore[1];
         greatCount++;
         comboCount++;
         JudgeDisplay(1);
@@ -188,6 +203,7 @@ public class PlayController : MonoBehaviour
     public void Bad() // NICE TRY
     {
         tapSound.Play();
+        scoreCount += tapScore[2];
         nicetryCount++;
         ComboReset();
         JudgeDisplay(2);
