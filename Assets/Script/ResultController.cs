@@ -14,6 +14,9 @@ public class ResultController : MonoBehaviour
     public GameObject FullCombo;
     public GameObject HighScore;
 
+    // score send
+    public static bool posted = false;
+
     void Start()
     {
         // タイトル・アーティスト
