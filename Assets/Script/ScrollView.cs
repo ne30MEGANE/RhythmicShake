@@ -48,10 +48,11 @@ namespace FancyScrollView
         }
 
         private MusicData toMusicData(string[] v){ // id, title, artist, level1, level2
-            int e = int.Parse(v[3]);
-            int n = int.Parse(v[4]);
+            int id = int.Parse(v[0]);
+            int e = int.Parse(v[4]);
+            int n = int.Parse(v[5]);
             
-            return new MusicData(v[0], v[1], v[2], e, n);
+            return new MusicData(id, v[1], v[2], v[3], e, n);
         }
     }
 }
