@@ -77,7 +77,7 @@ public class PlayController : MonoBehaviour
 
         // for debug
         if(TestMode){
-            SelectController.SelectedMusic = new FancyScrollView.MusicData("oheya","私たちのお部屋","nem*",1,4);
+            SelectController.SelectedMusic = new FancyScrollView.MusicData(1, "oheya","私たちのお部屋","nem*",1,4);
             SelectController.SelectedLevel = 2;
         }
 
