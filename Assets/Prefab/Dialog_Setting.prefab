@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 222076873064743207}
   - component: {fileID: 222076873064743205}
   m_Layer: 5
-  m_Name: Dialog
+  m_Name: Dialog_Setting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -784,6 +784,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 222076872259378544}
   slider_dsp: {fileID: 222076873906304889}
+  input: {fileID: 222076873704771711}
 --- !u!1 &222076873218874589
 GameObject:
   m_ObjectHideFlags: 0
@@ -1405,7 +1406,19 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 222076873064743205}
+        m_TargetAssemblyTypeName: DialogScript, Assembly-CSharp
+        m_MethodName: PlayerNameSet
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

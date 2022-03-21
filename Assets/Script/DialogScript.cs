@@ -12,6 +12,8 @@ public class DialogScript : MonoBehaviour
     // UI
     public Slider slider;
     public Text slider_dsp;
+
+    public InputField input;
     
     void Start()
     {
@@ -21,17 +23,24 @@ public class DialogScript : MonoBehaviour
         slider.value = highSpeed;
         slider_dsp.text = "現在の設定 ： " + highSpeed.ToString();
 
+        input.text = playerName;
+
     }
 
     public void CloseDialog(){
         PlayerData.HiSpeed = highSpeed;
         PlayerData.PlayerName = playerName;
+        Debug.Log(playerName);
         Destroy(this.gameObject);
     }
 
     public void HighSpeedSet(){
         highSpeed = slider.value;
         slider_dsp.text = "現在の設定 ： " + highSpeed.ToString();
+    }
+
+    public void PlayerNameSet(){
+        playerName = input.text;
     }
 
 }
