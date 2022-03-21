@@ -54,11 +54,11 @@ public class SelectController : MonoBehaviour
 
     // setting open
     [SerializeField] private Canvas parent = default;
-    [SerializeField] private DialogScript dialog = default;
-
+    [SerializeField] private DialogScript setting = default;
     public void OpenDialog(){
-        DialogScript _dialog = Instantiate(dialog);
+        DialogScript _dialog = Instantiate(setting);
         _dialog.transform.SetParent(parent.transform, false);
     }
+
     
 }

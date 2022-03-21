@@ -46,6 +46,7 @@ public class ResultController : MonoBehaviour
 
         // スコア
         Score.text = PlayController.scoreCount.ToString();
+        posted = false;
 
         // フルコン・ハイスコア表示管理
         FullCombo.SetActive(false);

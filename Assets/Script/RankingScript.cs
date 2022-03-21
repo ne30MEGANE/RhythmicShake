@@ -33,19 +33,19 @@ public class RankingScript : MonoBehaviour
             form.AddField("player", name);
             form.AddField("score", score);
 
-            string url = "http://localhost/RhythmicShake/score.php";
-            // string url = "http://192.168.xxx.xxx/RhythmicShake/rank.php";
+            // string url = "http://localhost/RhythmicShake/score.php";
+            string url = "http://172.20.10.6/RhythmicShake/score.php";
 
             UnityWebRequest rq = UnityWebRequest.Post(url, form);
             yield return rq.SendWebRequest();
 
             if(rq.result == UnityWebRequest.Result.Success){
-                Debug.Log("Success"); // for debug
+                // Debug.Log("Success"); // for debug
                 msg = "スコアを送信しました！";
                 ResultController.posted = true; // 送信済みフラグオン
             }else{ // failed
                 msg = "スコアの送信に失敗しました";
-                Debug.Log("Failed"); // for debug
+                // Debug.Log("Failed"); // for debug
             }
         }
 
